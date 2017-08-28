@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JS Bin</title>
+    <style>
+        .head img{
+            width：50px;
+            height: 50px;
+            border-radius:30px;
+            vertical-align: middle;
+        }
+        body{
+
+            background-color: white;
+        }
+        .layout{
+            margin: 0 auto;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 20px 0px;
+            width: 1000px;
+        }
+        .pic{
+
+            width: 300px;
+            height: auto;
+            float: right;
+            text-align: right;
+        }
+        .pic>img{
+
+           width: 250px;
+           margin-top: 20px;
+        }
+        .content{
+            margin-right: 300px;
+        }
+        span{
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        #time{
+            margin-left: 5px;
+            color: #969696;
+        }
+        .head{
+            height: 50px;
+            padding: 10px 0;
+        }
+        .text{
+            margin: 10px 0px;
+
+        }
+        .text>p{
+            font-size:16px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        .tag{
+            margin-top: 20px;
+        }
+        .tag>.btn{
+            border: 2px solid #f2907f;
+            border-radius: 10%;
+            color: #f2907f;
+            text-decoration: none;
+            padding: 3px 8px;
+        }
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+<div class="layout clearfix">
+    <div class="pic">
+        <img src="work/img/tupian.png" alt=" ">
+    </div>
+    <div class="content">
+        <div class="head">
+            <img src="work/img/timg.jpg" alt="">
+            <span id="name">林慕之</span>
+            <span id="time">8小时前</span>
+        </div>
+        <div class="text">
+            <h2>坚持“读书”这些年,人生真是太值了！</h2>
+                <p>2017.5.27|NO.18前几天，在国内大学的朋友给我发来微信。她说，5年前，刚进大学的时候，我们是一样的起点，如果当时我和你一样坚持不断坚持学习读书……</p>
+        </div>
+        <div class="tag">
+            <a class="btn" href="#">读书</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
