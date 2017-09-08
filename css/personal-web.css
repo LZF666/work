@@ -319,7 +319,7 @@ header{
     text-align: left;
 }
 /*插入一个中间连接的线*/
-.timeline>li:after {
+.timeline-item:after {
     content: '';
     display: block;
     position: absolute;
