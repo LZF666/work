@@ -1,0 +1,428 @@
+html,body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/*引入了阿里巴巴的iconfont，在此进行声明*/
+@font-face {
+    font-family: 'iconfont';  /* project id 386562 */
+    src: url('//at.alicdn.com/t/font_386562_l423sql0vpjy8pvi.eot');
+    src: url('//at.alicdn.com/t/font_386562_l423sql0vpjy8pvi.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_386562_l423sql0vpjy8pvi.woff') format('woff'),
+    url('//at.alicdn.com/t/font_386562_l423sql0vpjy8pvi.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_386562_l423sql0vpjy8pvi.svg#iconfont') format('svg');
+}
+.icon-font {
+    font-family: "iconfont" !important;
+    font-size: 80px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    color:#80abf1;
+}
+.font2 {
+    font-size: 90px;
+}
+
+/*整个页面，设置居中*/
+#page {
+    margin: 0 auto;
+    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/*设置每部分的内容居中*/
+.layout{
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+}
+/*设置每部分上下间隔*/
+.wrap{
+     padding: 150px 0;
+ }
+/*设置出现的两个按钮的效果*/
+.btn>a{
+    border: 2px solid #90e4cc;
+    border-radius: 7px;
+    color: #80abf1;
+    background-color: rgba(255,255,255,0.7);
+    padding: 15px 80px;
+    display: inline-block;
+    font-size: 25px;
+    font-weight:bold;
+}
+/*a标签的样式设置*/
+a{
+    text-decoration: none;
+}
+a:hover {
+    color: #90e4cc;
+}
+/*去掉所有li的样式*/
+li{
+    list-style: none;
+}
+/*每部分的标题文字样式*/
+.heading {
+    margin-bottom: 75px;
+    color: #333333;
+}
+.title {
+    font-size:  40px;
+    line-height: 1;
+    margin-bottom: 32px;
+    color: #333333;
+}
+.title-text {
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1;
+    color:  #80abf1;
+}
+/*设置奇数部分的背景色为淡紫色*/
+#page section:nth-child(odd){
+    background-color: rgba(175,174,241,0.05);
+}
+/*副标题部分的样式设置*/
+.subtitle {
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 700;
+    color: #333333;
+}
+.text{
+    color:  #80abf1;
+    line-height: 1.75;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第一部分，header部分*/
+header{
+    height: 757px;
+    margin: 0 auto;
+    background-image: url("../img/head.jpg");
+}
+/*导航栏部分nav，包含thumbnail头像，和breadcrunms导航列表*/
+.nav {
+
+    height: 120px;
+    text-align: center;
+    position: relative;
+    /*padding-top: 10px;*/
+}
+/*清除浮动*/
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+/*头像设置*/
+.thumbnail>img{
+    border: 1px solid #80abf1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.thumbnail {
+    margin-top:10px;
+    float: left;
+}
+/*导航列表的a链接悬停颜色设置，疑惑点一，为什么上面设置过了在这里不起作用？*/
+.breadcrumbs>a:hover{
+    color: #90e4cc;
+}
+/*导航列表的样式设置*/
+.breadcrumbs {
+
+    position: absolute;
+    top: 0px;
+    left:650px;
+    heigt: 100px;
+    font-size: 0;
+    margin-top:10px;
+}
+.breadcrumbs>a {
+    display: inline-block;
+    padding: 40px;
+    color: #80abf1;
+    font-size: 20px;
+    font-weight:bold;
+}
+/*自我介绍文字*/
+#intro-text {
+    text-align: center;
+    margin-top: 165px;
+}
+#intro-text>h2 {
+    font-size: 45px;
+    margin-bottom: 30px;
+    line-height: 1;
+    font-style: italic;
+    color: #333333;
+}
+#intro-text>h1{
+    font-size: 80px;
+    margin-bottom: 40px;
+    padding: 0;
+    line-height: 1;
+    color: #333333;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第二部分技能部分*/
+#ability{
+    height: 700px;
+}
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+/*为每个单独的列表展示设置样式*/
+.ability-list-item {
+    border: 2px solid #80abf1;
+    width: 360px;
+    padding: 10px;
+    float: left;
+    color: #1296DB;
+    margin:0 10px;
+    position: relative;
+    background: white;
+    border-radius: 5px;
+}
+/*制造底部的阴影效果*/
+.helper1{
+     position: absolute;
+     width:200px;
+     height:10px;
+     bottom:3px;
+     left: 15px;
+     box-shadow:0 0 20px 4px #444;
+     transform:rotate(-3deg);
+     z-index: -1;
+ }
+.helper2{
+    position: absolute;
+    width:200px;
+    height:10px;
+    bottom:3px;
+    right: 15px;
+    box-shadow:0 0 20px 4px #444;
+    transform:rotate(3deg);
+    z-index: -1;
+}
+/*设置阿里iconfont的大小*/
+.ability-list-item>.ability-icon{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+/*字体样式*/
+.ability-list-item .text {
+    font-size: 18px;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第三部分，作品部分*/
+#project {
+    height: 1100px;
+    padding: 150px 0;
+}
+/*作品列表ul*/
+.project-list{
+    padding: 0 30px;
+}
+/*作品列表li*/
+.project-list-item {
+    width: 380px;
+    height: 382px;
+    float: left;
+    font-size: 0;
+    border: 1px dashed #80abf1;
+    margin: 0 10px 20px 10px;
+}
+/*清除浮动*/
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+/*设置a标签的样式*/
+.project-list-item>a{
+    display: inline-block;
+}
+/*设置鼠标悬停的阴影效果*/
+.project-list-item>a:hover {
+    border: 10px solid rgba(175,174,241,0.05);
+    box-shadow:0px 3px 9px 10px #969696;
+}
+/*设置图片大小*/
+.project-list-item img {
+    width: 360px;
+    height: 260px;
+}
+/*设置底部文字的样式*/
+.project-text {
+    text-align: center;
+    padding: 10px 0;
+}
+.subtext {
+    font-style: italic;
+    color:#80abf1;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第四部分大学部分*/
+#university {
+    height: 1732px;
+    padding: 150px 0;
+}
+/*设置图片样式*/
+#university .layout .timeline img{
+    width: 156px;
+    height: 156px;
+    /*border: 7px solid rgba(175,174,241,0.2);*/
+    border-radius: 50%;
+}
+/*设置前四个小圈圈的颜色渐变效果*/
+.timeline-item:nth-child(1)>img{
+     border: 7px solid rgba(175,174,241,0.1);
+ }
+.timeline-item:nth-child(2)>img{
+    border: 7px solid rgba(175,174,241,0.3);
+}
+.timeline-item:nth-child(3)>img{
+    border: 7px solid rgba(175,174,241,0.5);
+}
+.timeline-item:nth-child(4)>img{
+    border: 7px solid rgba(175,174,241,0.7);
+}
+/*设置时间线的每个li*/
+.timeline-item {
+    text-align: center;
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 125px;
+}
+/*绝对定位旁边的文字*/
+.summary {
+    position: absolute;
+    right: 50%;
+    margin-right: 120px;
+    text-align: right;
+    top: 0;
+    width: 30em;
+    margin-top: 10px;
+}
+/*偶数文字左移*/
+.timeline>li:nth-child(even)>.summary{
+    left: 50%;
+    margin-left: 120px;
+    text-align: left;
+}
+/*插入一个中间连接的线*/
+.timeline>li:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    border-left: 2px solid #f1f1f1;
+    height: 100%;
+    z-index: -1;
+}
+/*设置最后一个小圈圈*/
+.end{
+    width: 156px;
+    height: 156px;
+    border: 7px solid rgba(175,174,241,0.8);
+    border-radius: 50%;
+    display: inline-block;
+}
+.end>h4{
+    margin-top: 45px;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第五部分，业余技能*/
+/*设置高度*/
+#hobby {
+    height: 930px;
+    text-align: center;
+}
+/*设置每个li的样式*/
+.hobby-list-item {
+    width: 405px;
+    float: left;
+    margin: 10px;
+}
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+/*设置每个li中的图片样式*/
+.hobby-list-item>img {
+    width: 239px;
+    height: 239px;
+    border: 7px solid rgba(175,174,241,0.4);
+    border-radius: 50%;
+}
+/*设置文本样式*/
+.hobby-intro {
+    text-align: center;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*第六部分，联系*/
+#contact {
+    height: 780px;
+    background-image: url("../img/header.jpg");
+}
+/*表单外部容器，与按钮隔开20px*/
+.contact-form{
+    margin-bottom: 20px;
+}
+/*清除浮动*/
+.clearfix:after{
+    content: '';
+    display: block;
+    clear:both;
+}
+/*浮动*/
+.half{
+    width: 48%;
+    height: 260px;
+    text-align: center;
+    }
+/*左浮*/
+.half-left{
+     float: left;
+ }
+/*右浮*/
+.half-right{
+    float: right;
+}
+/*每个input框的样式*/
+.form-item {
+    height: 65px;
+    border: 2px solid #90e4cc;
+    width: 100%;
+    border-radius: 4px;
+    background-color: rgba(175,174,241,0.05);
+    margin-bottom: 25px;
+}
+/*右边文本的样式*/
+.form-textarea{
+    border: 2px solid #90e4cc;
+    width: 100%;
+    height:256px;
+    background-color: rgba(175,174,241,0.05);
+}
+.half input:focus,textarea:focus {
+  border-color: #80abf1;
+}
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*页面尾部*/
+.copyright {
+    margin: 20px 0;
+    display: block;
+}
