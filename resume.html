@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我的简历</title>
+    <style>
+        html,body,h1,h2,h3,h4,h5,h6,p,ul,li,dl,dt,dd{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            letter-spacing: 1px;
+        }
+
+        li{
+            list-style: none;
+        }
+        body{
+            font: 14px/1.8 Arial;
+            background-color: #ccc;
+            color: #333;
+
+        }
+        #page{
+            max-width: 1000px;
+            height: 1000px;
+            background-color: #fff;
+            margin :0 auto;
+            padding: 60px 45px;
+        }
+        section{
+            margin-top: 30px;
+
+        }
+        section h2 {
+            font-size: 18px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            width: 40%;
+            margin-bottom: 20px;
+        }
+        section h3{
+            font-size: 18px;
+            line-height: 1;
+
+        }
+        section h3 span{
+            color:#ccc;
+            font-weight: normal;
+        }
+        section>ul>li{
+            padding-left: 70px;
+            padding-bottom: 10px;
+            border-left: 2px solid #333;
+            position:relative;
+        }
+        section>ul>li:before {
+            content:'';
+            display: inline-bolok;
+            position: absolute;
+            width:10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #333;
+            left: -6px;
+            top:0;
+        }
+        .name {
+            width: 40%;
+            float: left;
+
+        }
+        .contact {
+            width: 60%;
+            float: left;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="page">
+    <section class="intro">
+        <div class="name">
+            <div class="circle">
+                <span>L</span>
+                <span>ZF</span>
+            </div>
+            <h1>刘子釜</h1>
+            <p>应聘前端工程师</p>
+            <div class="contact">
+                <h2>联系方式</h2>
+                <ul>
+                    <li><strong>地址</strong>XXXXXXXXXXXX</li>
+                    <li><strong>手机</strong>XXXXXXXXXXX</li>
+                    <li><strong>邮箱</strong>XXXXXXXXXX</li>
+                    <li><strong>网站</strong>XXXXXXXXXXXX</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="work">
+        <h2>项目经历</h2>
+        <ul>
+            <li>
+                <h3>百度/<span>20xx-20xx</span></h3>
+                <p>承担了什么任务，出现技术名词，细节，量化</p>
+            </li>
+            <li>
+                <h3>百度<span>20xx-20xx</span></h3>
+                <p>承担了什么任务，出现技术名词，细节，量化</p>
+            </li>
+            <li>
+                <h3>百度<span>20xx-20xx</span></h3>
+                <p>承担了什么任务，出现技术名词，细节，量化</p>
+            </li>
+        </ul>
+
+    </section>
+
+    <section class="education">
+        <h2>教育经历</h2>
+        <ul>
+            <li>
+                <h3>XX大学<span>20xx-20xx</span></h3>
+                <p class="lighter">本科，树莓</p>
+                <p>专业课程</p>
+            </li>
+
+        </ul>
+    </section>
+    <section class="activity"></section>
+</div>
+</body>
+</html>
