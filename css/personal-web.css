@@ -378,9 +378,6 @@ header{
     background-image: url("../img/header.jpg");
 }
 /*表单外部容器，与按钮隔开20px*/
-.contact-form{
-    margin-bottom: 20px;
-}
 /*清除浮动*/
 .clearfix:after{
     content: '';
@@ -392,6 +389,7 @@ header{
     width: 48%;
     height: 260px;
     text-align: center;
+    margiin-bottom: 20px;
     }
 /*左浮*/
 .half-left{
