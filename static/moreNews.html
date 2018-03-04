@@ -61,7 +61,7 @@
     <script>
         var ct = document.querySelector("#ct");
         var btn = document.querySelector("#load-more");
-        var curIndex = 3 //当前要加载的数据的序号
+        var curIdx = 3 //当前要加载的数据的序号
         var len = 5 //每次要加载多少个数据
         var isLoading = false //状态锁，用于判断是否在加载数据
         ct.addEventListener("mouseover", function (e) {
@@ -82,12 +82,7 @@
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
-            var arr = []
-            for (key in json) {
-                arr.push(key + '=' + json[key])
-            }
-            url += "?" + arr.join('&')
-
+            var url = '/work/static/server.js?'+"idx=" + curIdx + "&" + "len="+ len;  // 拼接 url
             var xhr = new XMLHttpRequest();
             xhr.open('get', url)
             xhr.send()
