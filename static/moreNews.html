@@ -85,7 +85,7 @@
             isLoading = true;
            
             var url = './page'+index+'.json'; 
-                 
+             console.log(url)    
             var xhr = new XMLHttpRequest();
             xhr.open('get', url);
           
@@ -95,10 +95,12 @@
                     var string = JSON.parse(xhr.responseText)
                     var hasNext = string.hasNext;   
                     var data = string.data
+                    console.log(data)
                     isLoading = false
                     for(var i = 0; i < string.length; i++){
                         var child = document.createElement('li')
-                        child.innerText = data[i]
+                        child.textContent = data[i]
+                        
                         ul.appendChild(child)
                     }
               
