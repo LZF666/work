@@ -26,6 +26,11 @@
             cursor: pointer;
         }
 
+        .hover {
+            background: green;
+            color: #fff;
+        }
+
         #load-more {
             display: block;
             margin: 20px auto;
@@ -59,54 +64,49 @@
         var curIndex = 3 //当前要加载的数据的序号
         var len = 5 //每次要加载多少个数据
         var isLoading = false //状态锁，用于判断是否在加载数据
+        ct.addEventListener("mouseover", function (e) {
+            var target = e.target;
+            if (target.tagName.toLowerCase() === "li") {
+                target.classList.add('hover');
+            }
+        })
+        ct.addEventListener('mouseout', function (e) {
+            var target = e.target
+            if (target.tagName.toLowerCase() === "li") {
+                target.classList.remove('hover')
+            }
+        })
         btn.addEventListener('click', function (e) {
             e.preventDefault(); //防止点击a链接，页面跳到顶部
             if (isLoading) {
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
-            
-            
-            
-            
-            ajax('/work/static/server.js', {
-                idx: curIndex,
-                len: len
-            }, function (data) {
-                appendData(data);
-                isLoading = false //数据到来之前锁上
-                curIndex = curIndex + len //修改序号，下次要数据就要从新序号开始
-                
-            })
-
-        })
-
-        function ajax(url, json, onSuccess, onError) {
-            var xhr = new XMLHttpRequest();
             var arr = []
             for (key in json) {
                 arr.push(key + '=' + json[key])
             }
-            url = url+ "?" + arr.join('&')
-            console.log(url)
+            url += "?" + arr.join('&')
+
+            var xhr = new XMLHttpRequest();
             xhr.open('get', url)
             xhr.send()
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
-                    onSuccess(JSON.parse(this.responseText))
+                    var string = JSON.parse(xhr.responseText)
+                    isLoading = false
+                    for(var i = 0; i < string.length; i++){
+                        var child = document.createElement('li')
+                        child.innerText = string[i]
+                        ul.appendChild(child)
+                    }
                 } else {
-                    onError && onError()
+                    alert("error!")
                 }
             }
-        }
-        
-        function appendData(data) {
-            for (var i = 0; i < data.length; i++) {
-                var child = document.createElement('li')
-                child.innerText = data[i]
-                ct.appendChild(child)
-            }
-        }
+        })
+
+
     </script>
 </body>
 
