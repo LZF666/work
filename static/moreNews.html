@@ -82,7 +82,7 @@
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
-            var url = '/work/static/server.js?'+"idx=" + idx + "&" + "len="+ len;  // 拼接 url
+            var url = './server.js?'+"idx=" + idx + "&" + "len="+ len;  // 拼接 url
             idx += len;
             
             var xhr = new XMLHttpRequest();
