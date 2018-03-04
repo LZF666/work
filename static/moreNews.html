@@ -65,6 +65,10 @@
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
+            
+            
+            
+            
             ajax('/work/static/server.js', {
                 idx: curIndex,
                 len: len
@@ -89,13 +93,13 @@
             xhr.send()
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
-                    onSuccess(JSON.parse(this.response))
+                    onSuccess(JSON.parse(this.responseText))
                 } else {
                     onError && onError()
                 }
             }
         }
-
+        
         function appendData(data) {
             for (var i = 0; i < data.length; i++) {
                 var child = document.createElement('li')
