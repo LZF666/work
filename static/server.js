@@ -8,7 +8,7 @@ http.createServer(function(req, res){
   var pathObj = url.parse(req.url, true)
 
   switch (pathObj.pathname) {
-    case '/loadMore':
+    case '/work/static/server.js':
 
       var curIdx = pathObj.query.idx
       var len = pathObj.query.len
