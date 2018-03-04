@@ -64,6 +64,7 @@
         var idx = 3 //当前要加载的数据的序号
         var len = 5 //每次要加载多少个数据
         var isLoading = false //状态锁，用于判断是否在加载数据
+         var index = 1
         ct.addEventListener("mouseover", function (e) {
             var target = e.target;
             if (target.tagName.toLowerCase() === "li") {
@@ -82,23 +83,28 @@
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
-            var url = './server.js?'+"idx=" + idx + "&" + "len="+ len;  // 拼接 url
-            idx += len;
-            
+           
+            var url = './page?'+index+'.json'; 
+            var hasNext = result.hasNext;           
             var xhr = new XMLHttpRequest();
             xhr.open('get', url);
             xhr.send();
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
-                    console.log(xhr.responseText)
+                   
                     var string = JSON.parse(xhr.responseText)
+                    var hasNext = result.hasNext;   
+                    var data = string.data
                     isLoading = false
                     for(var i = 0; i < string.length; i++){
                         var child = document.createElement('li')
-                        child.innerText = string[i]
+                        child.innerText = data[i]
                         ul.appendChild(child)
                     }
-                } else {
+                } 
+                if(hasNext){
+                    index++
+                }else {
                     alert("error!")
                 }
             }
