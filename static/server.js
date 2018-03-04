@@ -1,7 +1,7 @@
 var http = require('http')
-var fs = require('fs')
+var fs = require('fs')  //启用读写文件模块
 var url = require('url')
-var path = require('path')
+var path = require('path') //防止不同系统路径不统一的情况出现
 
 http.createServer(function(req, res){
 
