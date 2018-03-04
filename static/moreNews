@@ -65,7 +65,7 @@
                 return; //如果正在请求数据，那这次点击就什么也不做
             }
             isLoading = true;
-            ajax('/loadMore', {
+            ajax('/work/static/server.js', {
                 idx: curIndex,
                 len: len
             }, function (data) {
