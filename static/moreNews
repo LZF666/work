@@ -72,7 +72,7 @@
                 appendData(data);
                 isLoading = false //数据到来之前锁上
                 curIndex = curIndex + len //修改序号，下次要数据就要从新序号开始
-                console.log(curIndex)
+                
             })
 
         })
@@ -83,7 +83,8 @@
             for (key in json) {
                 arr.push(key + '=' + json[key])
             }
-            url += "?" + arr.join('&')
+            url = url+ "?" + arr.join('&')
+            console.log(url)
             xhr.open('get', url)
             xhr.send()
             xhr.onload = function () {
