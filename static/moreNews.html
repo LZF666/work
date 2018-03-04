@@ -88,7 +88,7 @@
                  
             var xhr = new XMLHttpRequest();
             xhr.open('get', url);
-            xhr.send();
+          
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
                    
@@ -101,13 +101,16 @@
                         child.innerText = data[i]
                         ul.appendChild(child)
                     }
-                } 
-                if(hasNext){
-                    index++
-                }else {
-                    alert("error!")
+              
+                        if(hasNext){
+                            index++
+                        }else {
+                            alert("error!")
+                        }
                 }
             }
+                    xhr.send(); 
+           
         })
 
 
