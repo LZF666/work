@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+  *{
+  box-sizing:border-box;
+}
+.aside{
+  background: #c7171e;
+  width:200px;
+}
+ul,li{
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+.category{
+  position: relative;
+}
+.cate-title {
+  text-decoration: none;
+  color:#fff;
+  display:block;
+  font-size:14px;
+  border-bottom: 1px solid #fff;
+  padding:10px;
+  margin:0 10px;
+}
+.icon-goto{
+  position: absolute;
+  right:10px;
+  top:10px;
+  color:#fff;
+}
+.child-panel{
+  border:1px solid #ccc;
+  background: #fff;
+  position:absolute;
+  left:200px;
+  top:0;
+  width:210px;
+  display:none;
+}
+.child-panel a{
+  text-decoration: none;
+  color:#000;
+}
+.child-panel li{
+  float:left;
+  width:100px;
+  padding:5px;
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="list">
+  <ul class="aside">
+    
+    <li class="category">
+            <a class="cate-title" href="#">珠宝玉器</a>
+            <span class="icon-goto">&gt;</span>
+            <ul class="child-panel">
+					<li><a href="">翡翠</a></li>
+					<li><a href="">玉石</a></li>
+					<li><a href="">宝石</a></li>
+					<li><a href="">水晶</a></li>
+					<li><a href="">玛瑙</a></li>
+					<li><a href="">珍珠</a></li>
+					<li><a href="">钻石</a></li>
+					<li><a href="">琥珀</a></li>
+					<li><a href="">和田</a></li>
+					<li><a href="">琥珀</a></li>
+	 </ul>
+    </li>
+    <li class="category">
+				<a class="cate-title" href="#">珠宝玉器</a>
+				<span class="icon-goto">&gt;</span>
+				<ul class="child-panel">
+					<li><a href="">翡翠</a></li>
+					<li><a href="">玉石</a></li>
+					<li><a href="">宝石</a></li>
+					<li><a href="">水晶</a></li>
+					<li><a href="">玛瑙</a></li>
+					<li><a href="">珍珠</a></li>
+				</ul>
+			</li>
+    <li class="category">
+				<a class="cate-title" href="#">珠宝玉器</a>
+				<span class="icon-goto">&gt;</span>
+				<ul class="child-panel">
+					<li><a href="">翡翠</a></li>
+					<li><a href="">玉石</a></li>
+					<li><a href="">宝石</a></li>
+					<li><a href="">水晶</a></li>
+				</ul>
+			</li>
+    <li class="category">
+				<a class="cate-title" href="#">珠宝玉器</a>
+				<span class="icon-goto">&gt;</span>
+				<ul class="child-panel">
+					<li><a href="">翡翠</a></li>
+					<li><a href="">玉石</a></li>
+					<li><a href="">宝石</a></li>
+					<li><a href="">水晶</a></li>
+					<li><a href="">玛瑙</a></li>
+					<li><a href="">珍珠</a></li>
+				</ul>
+			</li>
+    <li class="category">
+				<a class="cate-title" href="#">珠宝玉器</a>
+				<span class="icon-goto">&gt;</span>
+				<ul class="child-panel">
+					<li><a href="">翡翠</a></li>
+					<li><a href="">玉石</a></li>
+					<li><a href="">宝石</a></li>
+					<li><a href="">水晶</a></li>
+				</ul>
+			</li>
+  </ul>
+</div>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+
+$('.aside').on('mouseover','.category',function(){
+  $(this).find('.child-panel').show();
+  $(this).siblings().find('.child-panel').hide();
+  $(this).find("span").css({"transform":"rotate(90deg)", "transition": "transform .3s"})
+  $(this).siblings().find("span").css("transform", "rotate(0deg)")
+})
+$('.aside').on('mouseout','.category',function(){
+  $(this).find('.child-panel').hide();
+  $(this).find("span").css("transform", "rotate(0deg)")
+})
+
+  </script>
+  </body>
+</html>
