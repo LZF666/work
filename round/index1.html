@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .ct {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ct ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .img-ct {
+            /* width: 1200px; 用js计算*/
+            position: absolute;
+            overflow: hidden;
+            /* left:-200px; */
+        }
+
+        .img-ct img {
+            width: 300px;
+            height: 200px;
+        }
+
+        .ct .img-ct>li {
+            float: left;
+        }
+
+        .arrow {
+            position: absolute;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            z-index: 1;
+            top: 50%;
+            margin-top: -15px;
+            color: #fff;
+            line-height: 30px;
+            font-size: 20px;
+            text-decoration: none;
+            text-align: center;
+
+            /* 高度的一半 */
+        }
+
+        .arrow:hover {
+            opacity: 0.7;
+        }
+
+        .pre {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .bullet {
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            bottom: 10px;
+            margin-left: -120px;
+
+            text-align: center;
+        }
+
+        .bullet>li {
+            display: inline-block;
+            width: 30px;
+            height: 8px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0;
+            margin: 0 1px;
+        }
+
+        .active {
+            background: #fff;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ct">
+        <ul class="img-ct">
+            <li data-id=0>
+                <a href="#">
+                    <img src="http://www.deskcar.com/desktop/else/201471792902/1.jpg" alt="">
+                </a>
+            </li>
+            <li data-id=1>
+                <a href="#">
+                    <img src="http://pic1.win4000.com/wallpaper/a/57313c75587b7.jpg" alt="">
+                </a>
+            </li>
+            <li data-id=2>
+                <a href="#">
+                    <img src="http://img.tuku.cn/file_big/201703/7cea5b8cc024476492d8e35a64d513a6.jpg" alt="">
+                </a>
+            </li>
+            <li data-id=3>
+                <a href="#">
+                    <img src="https://i0download.pchome.net/g1/M00/11/17/oYYBAFYgcH6IOuovAAWDUuOi-OYAACu2ADMdmIABYNq904.jpg" alt="">
+                </a>
+            </li>
+
+        </ul>
+        <a href="#" class="arrow pre">
+            <</a>
+                <a href="#" class="arrow next">></a>
+                <ul class="bullet">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <script>
+        var $imgCt = $('.img-ct');
+        var $imgs = $('.img-ct>li');
+        var imgCount = $imgs.length;
+        var imgWidth = $imgs.width();
+        var $preBtn = $('.ct .pre')
+        var $nextBtn = $('.ct .next')
+        var pageIndex = 0
+        var $bullets = $('.ct .bullet li')
+        var isAnimate = false
+
+        $imgCt.append($imgs.first().clone())
+        $imgCt.prepend($imgs.last().clone())
+        $imgCt.width((imgCount + 2) * imgWidth)
+        $imgCt.css({
+            left: -imgWidth
+        })
+
+        $nextBtn.click(function () {
+            playNext(1);
+        })
+        $preBtn.click(function () {
+            playPre(1);
+        })
+        $bullets.click(function(){
+            var index = $(this).index()
+            if(index > pageIndex){
+                playNext(index-pageIndex)
+                setBullet()
+            }else if(index < pageIndex){
+                playPre(pageIndex - index)
+                setBullet()
+            }
+        })
+        autoPlay();
+
+        function playNext(len) {
+          if(isAnimate){
+              return;
+          }
+          isAnimate= true
+            $imgCt.animate({
+                left: '-=' +len* imgWidth
+            }, function () {
+                
+                pageIndex+=len
+                // console.log(pageIndex)
+                if (pageIndex == imgCount) {
+                    pageIndex = 0
+                   
+                    $imgCt.css({
+                        left: -imgWidth
+                    })
+                }
+                setBullet();
+                isAnimate = false
+            })
+           
+        }
+
+        function playPre(len) {
+            if(isAnimate){
+              return;
+          }
+          isAnimate= true
+            $imgCt.animate({
+                left: '+=' + len*imgWidth
+            }, function () {
+                pageIndex-=len
+                if (pageIndex < 0) {
+                    pageIndex = imgCount - 1
+                    $imgCt.css({
+                        left: -imgWidth * imgCount
+                    })
+                }
+                setBullet();
+                isAnimate = false
+
+            })
+          
+        }
+
+        function setBullet() {
+            $bullets.removeClass('active').eq(pageIndex).addClass('active')
+        }
+        function stopAuto(){
+            clearInterval(clock);
+        }
+        function autoPlay(){
+            clock = setInterval(function(){
+                playNext(1);
+            },2000);
+        }
+       
+
+    </script>
+
+</body>
+
+</html>
