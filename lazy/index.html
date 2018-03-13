@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        .container li {
+            float: left;
+            margin: 10px 10px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container li img {
+            width: 360px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="container">
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img id="a" src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/6.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/10.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/11.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img id="b" src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg">
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg">
+            </a>
+        </li>
+
+    </ul>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+
+    <script>
+        var clock
+
+        lazyRender();
+        $(window).on('scroll', function () {
+            //300毫秒内动的话，如果定时器存在就取消掉上一个定时器，保证在300毫秒内移动只有一个定时器存在
+          if(clock){
+              clearTimeout(clock)
+          }
+          //不存在这个定时器，就设置一个定时器
+           clock = setTimeout(function(){
+               lazyRender();
+           },300)
+        })
+
+        function lazyRender() {
+            $('.container img').each(function () {
+                if (checkShow($(this)) && !isLoaded($(this))) {
+                    loadImg($(this))
+                }
+            })
+        }
+        //判断一个图片是否出现在我们的视野里
+        function checkShow($img) {
+            var scrollTop = $(window).scrollTop() //滚动条高度
+            var windowHeight = $(window).height() //窗口高度
+            var imgHeight = $img.outerHeight(true) //图片本身高度
+            var offsetTop = $img.offset().top //图片的偏移位置
+
+            if ((scrollTop + windowHeight > offsetTop) && (offsetTop + imgHeight > screenTop)) {
+                return true
+            }
+            return false
+        }
+        //判断一张图片是否加载过了
+        function isLoaded($img) {
+            return $img.attr('data-src') === $img.attr('src')
+        }
+        //加载图片
+        function loadImg($img) {
+            $img.attr('src', $img.attr('data-src'))
+        }
+    </script>
+</body>
+
+</html>
