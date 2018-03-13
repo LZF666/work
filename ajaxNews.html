@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>加载更多</title>
+    <style>
+        body {
+            font-size: 20px;
+        }
+
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        #ct li {
+            list-style: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .hover {
+            background: green;
+            color: #fff;
+        }
+
+        #load-more {
+            display: block;
+            margin: 20px auto;
+            padding: 5px 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            width: 80px;
+            text-decoration: none;
+            text-align: center;
+            color: #E27272;
+            border: 1px solid #E27272;
+            text-align: center;
+        }
+
+        .btn>img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hover {
+            background-color: green;
+            color: #fff;
+
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ct">
+        <li>内容1</li>
+        <li>内容2</li>
+    </ul>
+    <a href="#" id="load-more" class="btn">加载更多</a>
+
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+    <script>
+        var $loadBtn = $('#load-more')
+        var $ct = $('#ct')
+        var curIdx = 2 //目前页面上放置了几个li
+
+        //鼠标放置上去和移除的样式，这里由于Li是动态添加的，所以必须要事件代理
+        $ct.on('mouseenter', 'li', function () {
+            $(this).addClass('hover')
+        }).on('mouseleave', 'li', function () {
+            $(this).removeClass('hover')
+        })
+
+        $loadBtn.on('click', function (e) {
+            e.preventDefault(); //放置点击a链接页面跳到顶部
+            if ($(this).data('isLoading')) {
+                return;
+            } //添加状态锁
+            $(this).data('isLoading', true)
+            console.log($(this).html())
+            //将按钮里的文字变为一个旋转的图标
+            $(this).html(
+                '<img src="http://jrgzuoye.applinzi.com/%E4%BD%9C%E4%B8%9A%E5%AE%89%E6%8E%92/jscode/JS9-jqueryajax/loading.gif">'
+            )
+            $.ajax({
+                url: '/loadMore',
+                dataType: 'json',
+                type: 'get',
+                data: {
+                    start: curIdx,
+                    len: 5
+                },
+                success: function (json) {
+                    onSuccess();
+                },
+                error: function () {
+                    onError();
+                }
+            })
+        })
+
+        function onSuccess(json) {
+            //获取数据后把旋转的图标变回文字
+            $loadBtn.data('isLoading', false).text('加载更多');
+            console.log(json)
+            if (json.status == 1) {
+                append(json.data);
+                cur += 5
+            } else {
+                alert('fail!')
+            }
+        }
+
+        function onError() {
+            $loadBtn.data('isLoading', false).text('加载更多')
+            alert('系统异常')
+        }
+
+        function append(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                $ct.append('<li>' + arr[i] + '</li>')
+            }
+        }
+
+        //后台
+        /*
+        app.get('/loading', function(req, res) {
+    var loadDate = req.query.len*req.query.start;
+    var array=[loadDate,loadDate+1,loadDate+2]
+    res.send({
+        status: 0,
+        array
+    });
+});
+
+        */
+    </script>
+
+</html>
