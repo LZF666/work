@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        ul,
+        li,
+        p,
+        div {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /*这句很重要，没有的话会变形*/
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 900px;
+            margin: 0 auto;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        #pic-ct {
+            position: relative;
+        }
+
+        #pic-ct .item {
+            position: absolute;
+            padding: 0 0 10px 0;
+            width: 280px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            background: #fff;
+            opacity: 1;
+            transition: all 0.8s;
+        }
+
+        #pic-ct .item img {
+            margin: 10px;
+            width: 260px;
+        }
+
+        #pic-ct .item .header {
+            height: 25px;
+            margin: 0 12px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #pic-ct .desp {
+            font-size: 12px;
+            line-height: 1.8;
+            margin: 10px 15px 0;
+            color: rgb(58, 54, 54);
+        }
+
+        #load {
+            visibility: hidden;
+            height: 20px;
+        }
+
+        .hide {
+            display: none;
+            border: 1px solid pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="ct-waterfall">
+            <ul class="clearfix" id="pic-ct">
+                <!-- <li class="item">
+                    <a href="#" class="link">
+                        <img src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg" alt="">
+
+                    </a>
+                    <h4 class="header">标题</h4>
+                    <p class="desp">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero ipsa maxime voluptas minus provident
+                        molestias, officia esse rerum enim commodi tenetur fugit, magni doloremque ex accusamus at tempora!
+                        Sed, mollitia?</p>
+                </li> -->
+
+                <!-- 用于计算item宽度和列数，但不展示出来 -->
+                <li class="item hide"></li>
+            </ul>
+            <div id="load">我是看不见的</div>
+        </div>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        //1.获取数据
+        //2.把数据变为dom，通过瀑布流的方式放到页面上，为什么要先获取到了节点再去瀑布流，因为瀑布流需要高度
+        //如果还没获取到节点的话，就不知道图片的高度
+        //3.当页面滚动到底部的时候 ，再次执行第一步
+        var curPage = 1
+        var perPageCount = 10
+        var colSumHeight = []
+        var nodeWidth = $('.item').outerWidth(true)
+        var colNum = parseInt($('#pic-ct').width() / nodeWidth) //获取列数
+
+        for (var i = 0; i < colNum; i++) {
+            colSumHeight[i] = 0
+        }
+        var isDataArrive = true
+        start()
+
+        function start() {
+            getData(function (newsList) {
+                isDataArrive = true
+                $.each(newsList, function (idx, news) {
+                    var $node = getNode(news) //获取每个节点
+                    $node.find('img').load(function () {
+                        $('#pic-ct').append($node) //先放上去
+                        waterFallPlace($node) //再去瀑布流
+                    })
+                })
+            })
+            isDataArrive = false
+        }
+
+
+        var clock;
+        $(window).on('scroll', function () {
+            if (clock) {
+                clearTimeout(clock);
+            }
+            clock = setTimeout(function () {
+                checkshow()
+            }, 200)
+            // if(!isDataArrive) return;
+
+        })
+
+        function checkshow() {
+            if (isVisible($('#load'))) {
+                start()
+            }
+        }
+
+        function getData(callback) {
+            $.ajax({
+                url: 'http://platform.sina.com.cn/slide/album_tech',
+                //这里使用； 新浪新闻的jsonp接口，如：
+                //http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4
+
+                dataType: 'jsonp',
+                jsonp: "jsoncallback",
+                data: {
+                    app_key: '1271687855',
+                    num: perPageCount, //一页要多少数据
+                    page: curPage //页数
+                }
+            }).done(function (ret) {
+                if (ret && ret.status && ret.status.code === "0") {
+                    callback(ret.data); //如果数据没问题，那么生成节点并摆放好位置
+                    curPage++
+                } else {
+                    console.log('get error data');
+                }
+            })
+        }
+        //拼装成li节点,返回jquery对象
+        function getNode(item) {
+            var tpl = ''
+            tpl += '<li class="item">';
+            tpl += ' <a href="' + item.url + '" class="link"><img src="' + item.img_url + '" alt=""></a>';
+            tpl += ' <h4 class="header">' + item.short_name + '</h4>';
+            tpl += '<p class="desp">' + item.short_intro + '</p>';
+            tpl += '</li>';
+            return $(tpl)
+        }
+
+        function waterFallPlace($node) {
+            var idx = 0,
+                minSumHeight = colSumHeight[0];
+
+            // for (var i = 0; i < colSumHeight.length; i++) {
+            //     if (colSumHeight[i] < minSumHeight) {
+            //         idx = i;
+            //         minSumHeight = colSumHeight[i];
+            //     }
+            // }
+            minSumHeight = Math.min.apply(null, colSumHeight) //获取数组的最小值
+            idx = colSumHeight.indexOf(minSumHeight) //获取最小值的下标
+
+
+            $node.css({
+                left: nodeWidth * idx,
+                top: minSumHeight,
+                opacity: 1
+            });
+
+            colSumHeight[idx] = $node.outerHeight(true) + colSumHeight[idx];
+            $('#pic-ct').height(Math.max.apply(null, colSumHeight)); //手动设置父容器的高度，因为是绝对定位的所以无法自动靠子元素撑开，.load那个div就会一直出现在页面上，所以需要手动设置高度，把高度写死
+
+        }
+
+        function isVisible($el) {
+            var scrollH = $(window).scrollTop(),
+                winH = $(window).height(),
+                top = $el.offset().top;
+
+            if (top < winH + scrollH) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
