@@ -129,7 +129,7 @@
                 isDataArrive = true
                 $.each(newsList, function (idx, news) {
                     var $node = getNode(news) //获取每个节点
-                    $node.find('img').load(function () {
+                    $node.find('img').on.('load',function () {
                         $('#pic-ct').append($node) //先放上去
                         waterFallPlace($node) //再去瀑布流
                     })
