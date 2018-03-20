@@ -18,11 +18,12 @@
             position: fixed;
             bottom: 30px;
             right: 10px;
+            display: none;
+            cursor: pointer;
         }
 
         .box {
             border: 1px solid black;
-
             line-height: 50px;
             background-color: #ccc;
             margin-bottom: 10px;
@@ -85,7 +86,7 @@
         <div class="box">50</div>
     </div>
     <div id="btn">回到顶部</div>
-   <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
 
 
     <script>
@@ -106,7 +107,7 @@
                 var _this = this;
                 //console.log(_this)
                 $(window).on('scroll', function () {
-                    if ($(window).scrollTop() > 300) {
+                    if ($(window).scrollTop() > $(window).height()) {
                         _this.target.show();
                        
                     } else {
