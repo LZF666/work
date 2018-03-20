@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    html,body,div{
+        margin:0;
+        padding:0;
+    }
+        .img-preview {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .img-preview .rowCt {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+        }
+        .img-box{
+            margin:5px; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-preview">
+
+    </div>
+
+    <!-- <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script>
+        function Barrels($ct) {
+            this.$ct = $ct;
+            this.imgNum = 50; //一次获取的图片数量
+            this.baseHeight = 200; //每行基本高度
+            this.rowList = []; //存储每行数据
+            this.loadImg(); //先加载图片，拿到图片数据后再去布局
+        }
+        Barrels.prototype = {
+            loadImg: function () {
+                var _this = this
+                this.urls = this.getImgUrls(this.imgNum); //获取50长图片的url
+
+                $.each(this.urls, function (idx, url) {
+                    var img = new Image();
+                    img.src = url;
+                    img.onload = function () {
+                        var originWidth = img.width;
+                        var originHeight = img.height;
+                        var radio = originWidth / originHeight; //图片宽高比
+                        var imgInfo = {
+                            target: img,
+                            width: _this.baseHeight * radio,
+                            height: _this.baseHeight,
+                            radio: radio
+                        }
+                        _this.render(imgInfo)
+                    }
+                })
+            },
+            getImgUrls: function (num) {
+
+                var color, width, height, urls = [];
+                for (var i = 0; i < num; i++) {
+                    color = Math.random().toString(16).substring(2, 8);
+                    width = Math.floor(Math.random() * 100 + 150);
+                    height = Math.floor(Math.random() * 30 + 150);
+                    urls.push("https://placehold.it/" + width + "x" + height + "/" + color + "/000")
+
+                }
+                return urls;
+            },
+            render: function (imgInfo) {
+                var rowList = this.rowList;
+                var _this = this;
+                var rowWidth = 0;
+                var rowHeight = 0;
+                var windowWidth = _this.$ct.width();
+                console.log(windowWidth)
+                var lastImgInfo = imgInfo;
+
+                this.rowList.push(imgInfo)
+                $.each(rowList, function (key, imgInfo) {
+                    rowWidth += imgInfo.width;
+                    //console.log(rowWidth)
+                    if (rowWidth > windowWidth) {
+                        _this.rowList.pop();
+                        rowWidth = rowWidth - lastImgInfo.width;
+                        //rowWidth / baseHeight = windowWidth / rowHeight
+                        rowHeight = windowWidth / rowWidth * _this.baseHeight;
+                        _this.createRow(rowHeight);
+                        _this.rowList = [];
+                        _this.rowList.push(lastImgInfo);
+                    }
+                })
+            },
+            createRow: function (rowHeight) {
+                var _this = this;
+                var $rowCt = $(`<div class="rowCt"></div>`);
+                $.each(this.rowList,function(key,imgInfo){
+                    var $imgBox = $(`<div class="img-box"></div>`);
+                    $(imgInfo.target).css('height',rowHeight);
+                    $imgBox.append(imgInfo.target)
+                    $rowCt.append($imgBox);
+
+                })
+                this.$ct.append($rowCt);
+            }
+        }
+        var barrels = new Barrels($('.img-preview'))
+    </script>
+</body>
+
+</html>
